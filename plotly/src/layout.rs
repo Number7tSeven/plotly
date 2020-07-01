@@ -1268,7 +1268,9 @@ pub struct Layout {
 
     // polar: Option<LayoutPolar>,
     // annotations: Option<LayoutAnnotations>,
-    // shapes: Option<LayoutShapes>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
+    shapes: Option<Vec<Shape>>,
     #[serde(skip_serializing_if = "Option::is_none", rename = "boxmode")]
     box_mode: Option<BoxMode>,
     #[serde(skip_serializing_if = "Option::is_none", rename = "boxgap")]
@@ -1341,6 +1343,7 @@ impl Layout {
             xaxis: None,
             yaxis: None,
             template: None,
+            shapes: None,
             box_mode: None,
             box_gap: None,
             box_group_gap: None,
@@ -1516,6 +1519,11 @@ impl Layout {
         self
     }
 
+    pub fn shapes(mut self, shapes: Vec<Shape>) -> Layout {
+        self.shapes = Some(shapes);
+        self
+    }
+
     pub fn box_mode(mut self, box_mode: BoxMode) -> Layout {
         self.box_mode = Some(box_mode);
         self
@@ -1608,4 +1616,262 @@ impl Trace for Layout {
     fn serialize(&self) -> String {
         serde_json::to_string(&self).unwrap()
     }
+}
+
+#[derive(Serialize, Debug)]
+pub struct Shape {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    visible: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none", rename = "type")]
+    layout_type: Option<LayoutType>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    layer: Option<Layer>,
+    #[serde(skip_serializing_if = "Option::is_none", rename = "xref")]
+    x_ref: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none", rename = "xsizemode")]
+    x_size_mode: Option<XSizeMode>,
+    #[serde(skip_serializing_if = "Option::is_none", rename = "xanchor")]
+    x_anchor: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    x0: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    x1: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none", rename = "yref")]
+    y_ref: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none", rename = "ysizemode")]
+    y_size_mode: Option<YSizeMode>,
+    #[serde(skip_serializing_if = "Option::is_none", rename = "yanchor")]
+    y_anchor: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    y0: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    y1: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    path: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    opacity: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    line: Option<Line>,
+    #[serde(skip_serializing_if = "Option::is_none", rename = "fillcolor")]
+    fill_color: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none", rename = "fillrule")]
+    fill_rule: Option<FillRule>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    editable: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none", rename = "templateitemname")]
+    template_item_name: Option<String>
+}
+
+impl Shape {
+    pub fn new() -> Shape {
+        Shape {
+            visible: None,
+            layout_type: None,
+            layer: None,
+            x_ref: None,
+            x_size_mode: None,
+            x_anchor: None,
+            x0: None,
+            x1: None,
+            y_ref: None,
+            y_size_mode: None,
+            y_anchor: None,
+            y0: None,
+            y1: None,
+            path: None,
+            opacity: None,
+            line: None,
+            fill_color: None,
+            fill_rule: None,
+            editable: None,
+            name: None,
+            template_item_name: None
+        }
+    }
+
+    pub fn visible(mut self, visible: bool) -> Shape {
+        self.visible = Some(visible);
+        self
+    }
+
+    pub fn layout_type(mut self, layout_type: LayoutType) -> Shape {
+        self.layout_type = Some(layout_type);
+        self
+    }
+
+    pub fn layer(mut self, layer: Layer) -> Shape {
+        self.layer = Some(layer);
+        self
+    }
+
+    pub fn x_ref(mut self, x_ref: String) -> Shape {
+        self.x_ref = Some(x_ref);
+        self
+    }
+
+    pub fn x_size_mode(mut self, x_size_mode: XSizeMode) -> Shape {
+        self.x_size_mode = Some(x_size_mode);
+        self
+    }
+
+    pub fn x_anchor(mut self, x_anchor: f64) -> Shape {
+        self.x_anchor = Some(x_anchor);
+        self
+    }
+
+    pub fn x0(mut self, x0: f64) -> Shape {
+        self.x0 = Some(x0);
+        self
+    }
+
+    pub fn x1(mut self, x1: f64) -> Shape {
+        self.x1 = Some(x1);
+        self
+    }
+
+    pub fn y_ref(mut self, y_ref: String) -> Shape {
+        self.y_ref = Some(y_ref);
+        self
+    }
+
+    pub fn y_size_mode(mut self, y_size_mode: YSizeMode) -> Shape {
+        self.y_size_mode = Some(y_size_mode);
+        self
+    }
+
+    pub fn y_anchor(mut self, y_anchor: f64) -> Shape {
+        self.y_anchor = Some(y_anchor);
+        self
+    }
+
+    pub fn y0(mut self, y0: f64) -> Shape {
+        self.y0 = Some(y0);
+        self
+    }
+
+    pub fn y1(mut self, y1: f64) -> Shape {
+        self.y1 = Some(y1);
+        self
+    }
+
+    pub fn path(mut self, path: String) -> Shape {
+        self.path = Some(path);
+        self
+    }
+
+    pub fn opacity(mut self, opacity: f64) -> Shape {
+        self.opacity = Some(opacity);
+        self
+    }
+
+    pub fn line(mut self, line: Line) -> Shape {
+        self.line = Some(line);
+        self
+    }
+
+    pub fn fill_color<C: Color>(mut self, fill_color: C) -> Shape {
+        self.fill_color = Some(fill_color.to_color_string());
+        self
+    }
+
+    pub fn fill_rule(mut self, fill_rule: FillRule) -> Shape {
+        self.fill_rule = Some(fill_rule);
+        self
+    }
+
+    pub fn editable(mut self, editable: bool) -> Shape {
+        self.editable = Some(editable);
+        self
+    }
+
+    pub fn name(mut self, name: String) -> Shape {
+        self.name = Some(name);
+        self
+    }
+
+    pub fn template_item_name(mut self, template_item_name: String) -> Shape {
+        self.template_item_name = Some(template_item_name);
+        self
+    }
+}
+
+#[derive(Serialize, Debug)]
+pub enum LayoutType {
+    #[serde(rename="circle")]
+    Circle,
+    #[serde(rename="rect")]
+    Rect,
+    #[serde(rename="path")]
+    Path,
+    #[serde(rename="line")]
+    Line
+}
+
+#[derive(Serialize, Debug)]
+pub enum Layer {
+    #[serde(rename="above")]
+    Above,
+    #[serde(rename="below")]
+    Below
+}
+
+#[derive(Serialize, Debug)]
+pub enum XSizeMode {
+    #[serde(rename="scaled")]
+    Scaled,
+    #[serde(rename="pixel")]
+    Pixel
+}
+
+#[derive(Serialize, Debug)]
+pub enum YSizeMode {
+    #[serde(rename="scaled")]
+    Scaled,
+    #[serde(rename="pixel")]
+    Pixel
+}
+
+#[derive(Serialize, Debug)]
+pub struct Line {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    color: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    width: Option<u8>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    dash: Option<String>
+}
+
+impl Line {
+    pub fn new() -> Line {
+        Line {
+            color: None,
+            width: None,
+            dash: None
+        }
+    }
+
+    pub fn color<C: Color>(mut self, color: C) -> Line {
+        self.color = Some(color.to_color_string());
+        self
+    }
+
+    pub fn width(mut self, width: u8) -> Line {
+        self.width = Some(width);
+        self
+    }
+
+    pub fn dash(mut self, dash: String) -> Line {
+        self.dash = Some(dash);
+        self
+    }
+}
+
+#[derive(Serialize, Debug)]
+pub enum FillRule {
+    #[serde(rename="evenodd")]
+    EvenOdd,
+    #[serde(rename="nonzero")]
+    Nonzero
 }

@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - [Plotly for Rust Book](https://igiagkiozis.github.io/plotly/)
 - TODO Add support for linking the plotly.js library to the remote source.
+- Shapes support.
 ### Changed
 - `Layout` complete.
 ### Fixed
