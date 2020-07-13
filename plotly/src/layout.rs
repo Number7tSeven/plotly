@@ -1531,58 +1531,6 @@ pub struct Layout {
 impl Layout {
     pub fn new() -> Layout {
         Default::default()
-        // Layout {
-        //     title: None,
-        //     show_legend: None,
-        //     legend: None,
-        //     margin: None,
-        //     auto_size: None,
-        //     width: None,
-        //     height: None,
-        //     font: None,
-        //     uniform_text: None,
-        //     separators: None,
-        //     paper_background_color: None,
-        //     plot_background_color: None,
-        //     color_scale: None,
-        //     colorway: None,
-        //     color_axis: None,
-        //     mode_bar: None,
-        //     hover_mode: None,
-        //     click_mode: None,
-        //     drag_mode: None,
-        //     select_direction: None,
-        //     hover_distance: None,
-        //     spike_distance: None,
-        //     hover_label: None,
-        //     grid: None,
-        //     calendar: None,
-        //     xaxis: None,
-        //     yaxis: None,
-        //     template: None,
-        //     shapes: None,
-        //     box_mode: None,
-        //     box_gap: None,
-        //     box_group_gap: None,
-        //     bar_mode: None,
-        //     bar_norm: None,
-        //     bar_gap: None,
-        //     bar_group_gap: None,
-
-        //     violin_mode: None,
-        //     violin_gap: None,
-        //     violin_group_gap: None,
-
-        //     waterfall_mode: None,
-        //     waterfall_gap: None,
-        //     waterfall_group_gap: None,
-
-        //     pie_colorway: None,
-        //     extend_pie_colors: None,
-
-        //     sunburst_colorway: None,
-        //     extend_sunburst_colors: None,
-        // }
     }
 
     pub fn title(mut self, title: Title) -> Layout {
